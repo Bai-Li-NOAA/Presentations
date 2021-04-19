@@ -1,0 +1,17 @@
+Package: Presentations
+Title: Share presentations developed in R or other plain text languages.
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Bai",
+           family = "Li",
+           role = c("aut", "cre"),
+           email = "bai.li@noaa.gov")
+Description: What the package does (one paragraph).
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    knitr
+VignetteBuilder: knitr
