@@ -1,0 +1,501 @@
+---
+title:  "Wish I'd known:<br>Project workflow and <br> reproducible science"
+author: "Bai Li <br> <br> National Stock Assessment Modeling Team <br> Contractor with ECS in support of NOAA Fisheries <br> Office of Science and Technology <br> `bai.li@noaa.gov`"
+date: "April 21, 2021 <br> Updated on `r Sys.Date()` <br> University of Maine"
+output:
+  xaringan::moon_reader:
+    css: ["xaringan-themer.css"]
+    lib_dir: libs
+    nature:
+      ratio: '4:3'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "Page %current%"
+---
+layout: true
+  
+
+```{r xaringanthemer, include=FALSE, warning=FALSE}
+remotes::install_github("nmfs-general-modeling-tools/nmfspalette")
+library(xaringanthemer)
+library(here)
+library(nmfspalette)
+
+static_dir <- here::here("docs", "static")
+noaa_static_dir <- file.path(static_dir, "noaa_static")
+model_comparison_dir <- file.path(static_dir, "2020_model_comparison_project")
+fims_dir <- file.path(static_dir, "FIMS")
+general_dir <- file.path(static_dir, "general")
+
+# make colors css names
+
+style_xaringan(
+  
+  base_font_size = "15px",
+  text_font_size = "1.5rem",
+  
+  title_slide_background_color = unname(nmfs_cols("darkblue")),
+  title_slide_text_color = unname(nmfs_cols("white")),
+  title_slide_background_size = "cover",
+  title_slide_background_image = file.path(noaa_static_dir, "slideswooshver.png"),
+  
+  background_image = file.path(noaa_static_dir, "slideswoosh.PNG"),
+  background_size = "cover",
+  background_color = unname(nmfs_cols("white")),
+  
+  header_font_google = google_font("Arimo"),
+  header_color = unname(nmfs_cols("darkblue")),
+  
+  text_color = unname(nmfs_cols("darkblue")),
+  text_font_google = google_font("Carlito", "300", "300i"),
+  text_slide_number_color = unname(nmfs_cols("lightteal")),
+  
+  code_font_google = google_font("Source Code Pro"),
+  code_highlight_color = unname(nmfs_cols("medteal")),
+  
+  inverse_background_color = unname(nmfs_cols("processblue")),
+  inverse_text_color = unname(nmfs_cols("supltgray")),
+  
+  footnote_font_size = "0.6em",
+  footnote_color = unname(nmfs_cols("darkblue")),
+  footnote_position_bottom = "10px",
+  
+  link_color = unname(nmfs_cols("medteal")),
+  
+  
+  extra_css = list(
+    ".remark-slide-number" = list(
+      "font-size" = "0.4em",
+      "font-weight" = "bold",
+      "margin" = "0px 840px -2px 0px"),
+    
+    ".title-slide h1, h2, h3" = list(
+      "text-align" = "right")
+  )
+)
+```
+
+.footnote[U.S. Department of Commerce | National Oceanic and Atmospheric Administration | National Marine Fisheries Service]
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(kableExtra)
+library(DiagrammeR)
+library(data.tree)
+library(plyr)
+
+```
+
+---
+# About me
+
+- Education
+
+```{r echo=FALSE}
+education <- read.csv(
+  file.path(static_dir, "Education.csv"))
+
+kable(education, "html") %>%
+  kable_styling(full_width = F,
+                font_size = 18)
+      
+```
+
+<br>
+- Positions
+
+```{r echo=FALSE}
+position <- read.csv(
+  file.path(static_dir, "Position.csv"))
+
+kable(position, "html") %>%
+  kable_styling(full_width = F,
+                font_size = 18)
+      
+```
+
+
+---
+# Presentation Overview
+
+- Projects 
+
+  + Age-structured stock assessment package comparison 
+  
+  + Fisheries Integrated Modeling System (FIMS)
+  
+  + R interface to the Metapopulation Assessment System (r4MAS)
+
+<br>
+
+- Project workflow and programming resources
+  
+
+---
+# Age-structured stock assessment package comparison
+
+.pull-left[
+
+```{r echo = F, fig.align = "left"}
+knitr::include_graphics(file.path(model_comparison_dir, "dichmont_us_fisheries_councils.jpg"))
+```
+*<sup>1</sup>Dichmont et al., 2016*
+]
+
+.footnote[
+[1] https://doi.org/10.1016/j.fishres.2016.07.001
+]
+
+
+.pull-right[
+
+- Packages 
+
+  - Assessment Model for Alaska (AMAK)
+  
+  - Age-Structued Assessment Program (ASAP)
+  
+  - Beaufort Assessment Model (BAM)
+  
+  - Stock Synthesis (SS)
+
+]
+
+---
+# Age-structured stock assessment package comparison
+.pull-left[
+```{r echo=FALSE, fig.align = "left", out.width = "80%"}
+DiagrammeR::grViz("digraph {
+  graph [layout = dot, rankdir = TD, fontsize = 10]
+                  
+  node [shape = rectangle, style = filled, fillcolor = Linen]        
+  rec1 [label = 'Modeler A: \nData simulation', fillcolor = Beige]
+  rec2 [label = 'Modeler A: \nResults Comparison', fillcolor = Beige]
+  rec3 [label = 'Modeler B: \nSA 1']
+  rec4 [label = 'Modeler C: \nSA 2']
+  rec5 [label = 'Modeler D: \nSA 3']
+  rec6 [label = 'Modeler E: \nSA 4']
+
+  # edge definitions with the node IDs
+  rec1 -> {rec3 rec4 rec5 rec6} -> rec2
+  }", height = 180)
+```
+]
+
+.pull-right[
+![](`r "https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/icesjms/72/1/10.1093_icesjms_fst237/1/fst23701.gif?Expires=1621614216&Signature=oEYYcrK7jA-UpVPvLA7wSrqDk~a7ffe6I4xGgRS7BrNrc~~HfcS0vUux1QI4YG4axsvVdo0t0MFnS9yrD5LxTfEPAZYOq4LyPFNwo-AL6BiOrGjuD4UpDzcKSnfCIsCpDTg7JPWTgFvu9qfCDsDEuCOkiIltA9m3oFHdp037OQLcpCQfJgoAdc~hI8B4P4UIg3o266KRxxh56iTbx-pnGRu9ZzWDBiVMspUv2BIWkyiOqqdF6qWHu3r93leLY14HiWcN-U4jc6Fpe2mxRf-Z7w52ro5wct0Qm~PVEKyLeuXDpSB1TW~P5B2FRHhQQMr7tsNQ0CS15nDAskiXRI4YPQ__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA"`)
+*<sup>1</sup>Deroba et al., 2015*
+]
+
+.footnote[
+[1] https://doi.org/10.1093/icesjms/fst237
+]
+
+???
+Assumptions and configuration choices
+
+---
+# Age-structured stock assessment package comparison
+- Feature comparison and common requirements (Part I)
+```{r echo=FALSE}
+package_feature_part1 <- read.csv(
+  file.path(model_comparison_dir, "package_feature_part1.csv"))
+
+kable(package_feature_part1, "html") %>%
+  kable_styling(full_width = F,
+                font_size = 14,
+                position = "float_left")
+```
+
+---
+# Age-structured stock assessment package comparison
+- Feature comparison and common requirements (Part II)
+
+```{r echo=FALSE}
+package_feature_part2 <- read.csv(
+  file.path(model_comparison_dir, "package_feature_part2.csv"))
+
+kable(package_feature_part2, "html") %>%
+  kable_styling(full_width = F,
+                font_size = 14,
+                position = "float_left")
+      
+```
+*<sup>1</sup>Li et al., In review*
+
+.footnote[
+[1] B. Li, K. W. Shertzer, P. D. Lynch, J. N. Ianelli, C. M. Legault, E. H. Williams, R. D.
+Methot Jr, E. N. Brooks, J. J. Deroba, A. M. Berger, S. R. Sagarese, J. K.T. Brodziak, I. G.
+Taylor, M. A. Karp, C. R. Wetzel, and M. Supernaw. A comparison of four primary age-structured
+stock assessment models used in the United States. In Review. Fishery Bulletin.
+]
+
+---
+# Age-structured stock assessment package comparison
+- Beverton-Holt spawner-recruit model bias correction
+
+ - Difference between median- and mean-unbiased R0/h increases with increasing sigmaR
+```{r echo = F, fig.align = "left"}
+knitr::include_graphics(file.path(model_comparison_dir, "r0_h_bias correction.jpg"))
+```
+
+---
+# Age-structured stock assessment package comparison
+- Conversion
+
+```{r echo = F, fig.align = "left", out.width = "80%"}
+knitr::include_graphics(file.path(model_comparison_dir, "msy_bias_correctiono.jpg"))
+```
+
+---
+# Age-structured stock assessment package comparison
+
+.pull-left[
+
+- Stock assessment training 
+
+- Base case discussion
+
+- Cases priotization
+
+- Research phases and montly reporting 
+
+- Weekly check-in chat
+
+- Meeting notes and actions for next meeting
+]
+
+.pull-right[
+![](`r "http://www.planningplanet.com/sites/default/files/imagecache/wysiwyg_full_page/wysiwyg_imageupload/42/reporting.gif"`)
+]
+
+.footnote[
+http://www.planningplanet.com/sites/default/files/imagecache/wysiwyg_full_page/wysiwyg_imageupload/42/reporting.gif
+]
+
+---
+# Age-structured stock assessment package comparison
+.pull-left[
+- Inputs/outputs standardization 
+  - [DMAS](https://github.com/Bai-Li-NOAA/DMAS)
+  
+Installation instruction
+
+```r 
+install.packages("remotes")
+remotes::install_github("Bai-Li-NOAA/DMAS")
+library(DMAS)
+```
+Load assessment examples
+    
+```r
+asap_input <- DMAS::asap_simple_input
+asap_output <- DMAS::asap_simple_output
+ss_input <- DMAS::ss_empirical_waa_input
+```
+]
+
+.pull-right[
+![](`r "https://taf.ices.dk/img/taf-diagram.png"`)
+*<sup>1</sup>ICES Transparent Assessment Framework Web App*
+]
+
+.footnote[
+[1] https://taf.ices.dk/app/about
+]
+
+---
+# Age-structured stock assessment package comparison
+- Technical skills that I learned but I didn't write in the manuscript
+
+  - Handle assessment model inputs and outputs with available R packages
+  
+     - [ASAPplots](https://github.com/cmlegault/ASAPplots) and ASAP
+     - [FishGraph](https://github.com/RobCheshire-NOAA/FishGraph) and BAM
+     - [r4ss](https://github.com/r4ss/r4ss) and SS
+     
+  - Run assessment models in R
+  
+```r 
+asap_input <- ReadASAP3DatFile("asap3.DAT")
+
+asap_input$dat$CAA_mats[[1]] <- cbind(em_input$L.age.obs$fleet1, em_input$L.obs$fleet1)
+
+WriteASAP3DatFile(fname = "asap3.DAT", dat.object=asap_input
+
+system(paste(file.path(casedir, "ASAP3.exe"), file.path(casedir, "asap3.DAT")
+```
+---
+# R interface to the Metapopulation Assessment System 
+.pull-left[
+- MAS: Metapopulation Assessment System
+
+- R interface
+
+- Build and run MAS models directly using R
+
+- [NOAA Fisheries Integrated Toolbox](https://noaa-fisheries-integrated-toolbox.github.io/) => [Fish and Fisheries](https://nmfs-fish-tools.github.io/)
+
+- [Testing: r4MAS GitHub repository](https://github.com/nmfs-fish-tools/r4MAS/tree/master/tests/testthat)
+
+- [Documentation: r4MAS site](https://nmfs-fish-tools.github.io/r4MAS/)
+
+*<sup>1</sup>Goethel and Berger, 2017*
+]
+
+.pull-right[
+![](`r "https://cdnsciencepub.com/cms/10.1139/cjfas-2016-0290/asset/images/large/cjfas-2016-0290f2.jpeg"`)
+]
+
+.footnote[
+[1]https://doi.org/10.1139/cjfas-2016-0290
+]
+
+???
+Tool for spatial modeling of fish population
+---
+# R interface to the Metapopulation Assessment System 
+
+.pull-left[
+![](`r "https://miro.medium.com/max/14000/1*_hkNXL7RuIbrwA4VclW0yg.jpeg"`)
+]
+
+.pull-right[
+- Automated testing
+
+  - Unit testing
+
+  - Integration testing
+
+  - System testing
+
+  - Acceptance testing
+]
+
+.footnote[
+[1]https://miro.medium.com/max/14000/1*_hkNXL7RuIbrwA4VclW0yg.jpeg
+]
+
+---
+# Project workflow and programming resources
+
+.pull-left[
+![](`r "http://www.phdcomics.com/comics/archive/phd101212s.gif"`)
+]
+
+.pull-right[
+- 500+ line of code in one R script
+
+- No version control in code
+
+- finale.R => final2.R => final_final.R
+
+How to make science reproducible and make your life easier?
+]
+
+.footnote[
+[1]http://www.phdcomics.com/comics/archive/phd101212s.gif
+]
+---
+# Clear project structure and workflow
+
+.pull-left[
+```{r echo=FALSE}
+path <- c(
+    "project/doc/manuscript.Rmd",
+    "project/doc/notes.Rmd",
+    "project/doc/requirement.Rmd",
+    "project/data/data.csv", 
+    "project/R/read_input_function.R", 
+    "project/R/read_input_function.R",
+    "project/code/configuration.R", 
+    "project/output/summary_statistics.csv",
+    "project/output/figure.jpeg",
+    "project/doc/manuscript.Rmd",
+    "project/doc/notes.Rmd"
+)
+
+x <- lapply(strsplit(path, "/"), function(z) as.data.frame(t(z)))
+x <- rbind.fill(x)
+x$pathString <- apply(x, 1, function(x) paste(trimws(na.omit(x)), collapse="/"))
+(mytree <- data.tree::as.Node(x))
+```
+]
+
+.pull-right[
+![](`r "https://rverse-tutorials.github.io/RWorkflow-NWFSC-2020/images/tools-logo-transparent.png"`)
+
+[Practical R Workflow for Scientists Summer 2020](https://rverse-tutorials.github.io/RWorkflow-NWFSC-2020/index.html)
+]
+
+---
+# Version control system
+"A system that records changes to a file or a set of files over time so that you can recall specicif  versions later"
+
+- Revert selected files back to a previous state
+- Revert the entire project back to a previous state
+- Compare changes over time
+- Git and GitHub
+
+.pull-left[
+```{r, echo=FALSE}
+knitr::include_graphics("https://git-scm.com/book/en/v2/images/local.png")
+```
+]
+.pull-right[
+```{r, echo=FALSE}
+knitr::include_graphics("https://git-scm.com/book/en/v2/images/centralized.png")
+```
+]
+
+.footnote[
+Source: 
+https://git-scm.com/;
+https://github.com/
+]
+
+???
+Git is a free and open source distributed version control system
+
+GitHub uses Git to provide internet hosting for software development and version control
+---
+# GitHub Actions
+
+- Automate tasks within software development life cycle
+- Event-driven commands run (e.g. push and pull)
+- Automated multi-platform testing
+- Job, steps, and actions
+
+```{r echo = F, fig.align = "left"}
+knitr::include_graphics(file.path(general_dir, "github_actions.PNG"))
+```
+
+---
+# In summary
+- Project oriented workflow
+
+- Standardized input/output of your project and tool*<sup>1,2</sup>*
+
+- Generate dynamic reports with R Markdown*<sup>3</sup>*
+
+- Collaborative work with Git and GitHub*<sup>4</sup>*
+
+- Produce web-based documentation of your research*<sup>5</sup>*
+
+.footnote[
+More resources: <br>
+[1][Taking your data to go with R packages](https://www.davekleinschmidt.com/r-packages/) <br>
+[2][Making your first R package](https://tinyheero.github.io/jekyll/update/2015/07/26/making-your-first-R-package.html) <br>
+[3][R Markdown](https://rmarkdown.rstudio.com/) <br>
+[4][Introduction to Git within RStudio](https://rverse-tutorials.github.io/RWorkflow-NWFSC-2020/intro-git.html)<br>
+[5][Pkgdown](https://pkgdown.r-lib.org/index.html)
+
+]
+---
+# Thanks!
+
+bai.li@noaa.gov
+
+

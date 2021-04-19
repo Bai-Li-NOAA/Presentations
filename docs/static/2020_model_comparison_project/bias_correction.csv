@@ -1,0 +1,17 @@
+Feature,AMAK,ASAP,BAM,SS
+Age modeled,1+,1+,1+,0+/1+
+Timing of spawning,Real month,Fraction,Fraction,Real month
+Timing of survey,Real month,Real month,Fraction,Real month
+Survey index unit,Biomass/Number,Biomass/Number,Biomass/Number,Biomass/Number
+Spawner-recruit model,,,,
+·Standard Beverton-Holt,Y,Y,Y,Y
+·Ricker,Y,,Y,Y
+·Average recruitment,Y,Y,Y,Y
+Bias adjustment of recruitment,,,Y,Y
+Types of selectivity available,,,,
+·Free parameter approach,Bound,Random walk,Logit ,Random walk/logit
+·Simple logistic function,Y,Y,Y,Y
+·Double logistic function ,Y (3 parameters),Y (4 parameters),Y (4 parameters),Y (4 parameters)
+·Logistic-exponential function, , ,Y,Y
+·Joint-logistic function,,,Y,Y
+·Double-Gaussian function,,,Y,Y

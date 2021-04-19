@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Wish I'd known: Project workflow and   reproducible science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bai Li     National Stock Assessment Modeling Team   Contractor with ECS in support of NOAA Fisheries   Office of Science and Technology   bai.li@noaa.gov" />
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/viz/viz.js"></script>
+    <link href="libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding/grViz.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Wish I'd known:<br>Project workflow and <br> reproducible science
+### Bai Li <br> <br> National Stock Assessment Modeling Team <br> Contractor with ECS in support of NOAA Fisheries <br> Office of Science and Technology <br> <code>bai.li@noaa.gov</code>
+### April 21, 2021 <br> Updated on 2021-04-19 <br> University of Maine
+
+---
+
+layout: true
+  
+
+
+
+.footnote[U.S. Department of Commerce | National Oceanic and Atmospheric Administration | National Marine Fisheries Service]
+
+
+
+
+---
+# About me
+
+- Education
+
+&lt;table class="table" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Degree &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Major &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; University &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Ph.D. &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Marine Biology &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; University of Maine, Orono, ME, USA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B.S. &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Marine Biology &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; University of Maine, Orono, ME, USA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B.S. &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Marine Resources &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Shanghai Ocean University, Shanghai, China &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+- Positions
+
+&lt;table class="table" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Position &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Affliation &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2020-Present &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; External Graduate Faculty &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; School of Marine Sciences, University of Maine &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2019-2020 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Postdoc &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Research Associateship, National Research Council &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2018-2019 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Postdoc &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; School of Marine Sciences, Univeristy of Maine &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+# Presentation Overview
+
+- Projects 
+
+  + Age-structured stock assessment package comparison 
+  
+  + Fisheries Integrated Modeling System (FIMS)
+  
+  + R interface to the Metapopulation Assessment System (r4MAS)
+
+&lt;br&gt;
+
+- Project workflow and programming resources
+  
+
+---
+# Age-structured stock assessment package comparison
+
+.pull-left[
+
+&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/2020_model_comparison_project/dichmont_us_fisheries_councils.jpg" width="3333" style="display: block; margin: auto auto auto 0;" /&gt;
+*&lt;sup&gt;1&lt;/sup&gt;Dichmont et al., 2016*
+]
+
+.footnote[
+[1] https://doi.org/10.1016/j.fishres.2016.07.001
+]
+
+
+.pull-right[
+
+- Packages 
+
+  - Assessment Model for Alaska (AMAK)
+  
+  - Age-Structued Assessment Program (ASAP)
+  
+  - Beaufort Assessment Model (BAM)
+  
+  - Stock Synthesis (SS)
+
+]
+
+---
+# Age-structured stock assessment package comparison
+.pull-left[
+<div id="htmlwidget-d5fb564317172549019f" style="width:80%;height:180px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d5fb564317172549019f">{"x":{"diagram":"digraph {\n  graph [layout = dot, rankdir = TD, fontsize = 10]\n                  \n  node [shape = rectangle, style = filled, fillcolor = Linen]        \n  rec1 [label = \"Modeler A: \nData simulation\", fillcolor = Beige]\n  rec2 [label = \"Modeler A: \nResults Comparison\", fillcolor = Beige]\n  rec3 [label = \"Modeler B: \nSA 1\"]\n  rec4 [label = \"Modeler C: \nSA 2\"]\n  rec5 [label = \"Modeler D: \nSA 3\"]\n  rec6 [label = \"Modeler E: \nSA 4\"]\n\n  # edge definitions with the node IDs\n  rec1 -> {rec3 rec4 rec5 rec6} -> rec2\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+.pull-right[
+![](https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/icesjms/72/1/10.1093_icesjms_fst237/1/fst23701.gif?Expires=1621614216&amp;Signature=oEYYcrK7jA-UpVPvLA7wSrqDk~a7ffe6I4xGgRS7BrNrc~~HfcS0vUux1QI4YG4axsvVdo0t0MFnS9yrD5LxTfEPAZYOq4LyPFNwo-AL6BiOrGjuD4UpDzcKSnfCIsCpDTg7JPWTgFvu9qfCDsDEuCOkiIltA9m3oFHdp037OQLcpCQfJgoAdc~hI8B4P4UIg3o266KRxxh56iTbx-pnGRu9ZzWDBiVMspUv2BIWkyiOqqdF6qWHu3r93leLY14HiWcN-U4jc6Fpe2mxRf-Z7w52ro5wct0Qm~PVEKyLeuXDpSB1TW~P5B2FRHhQQMr7tsNQ0CS15nDAskiXRI4YPQ__&amp;Key-Pair-Id=APKAIE5G5CRDK6RD3PGA)
+*&lt;sup&gt;1&lt;/sup&gt;Deroba et al., 2015*
+]
+
+.footnote[
+[1] https://doi.org/10.1093/icesjms/fst237
+]
+
+???
+Assumptions and configuration choices
+
+---
+# Age-structured stock assessment package comparison
+- Feature comparison and common requirements (Part I)
+&lt;table class="table" style="font-size: 14px; width: auto !important; float: left; margin-right: 10px;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Feature &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; AMAK &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; ASAP &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; BAM &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; SS &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Age modeled &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0+/1+ &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Timing of spawning &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Real month &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Fraction &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Fraction &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Real month &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Timing of survey &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Real month &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Real month &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Fraction &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Real month &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Survey index unit &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biomass/Number &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biomass/Number &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biomass/Number &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biomass/Number &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Spawner-recruit model &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Standard Beverton-Holt &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Ricker &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Average recruitment &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Bias adjustment of recruitment &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Types of selectivity available &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Free parameter approach &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Bound &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Random walk &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Logit &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Random walk/logit &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Simple logistic function &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Double logistic function &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y (3 parameters) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y (4 parameters) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y (4 parameters) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y (4 parameters) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Logistic-exponential function &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Joint-logistic function &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Double-Gaussian function &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+# Age-structured stock assessment package comparison
+- Feature comparison and common requirements (Part II)
+
+&lt;table class="table" style="font-size: 14px; width: auto !important; float: left; margin-right: 10px;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Feature &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; AMAK &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; ASAP &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; BAM &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; SS &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; F in terminal year &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Last Year &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Last Year &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Flexible &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Last Year &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Definition of F &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Flexible &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Apical F &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Apical F &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Flexible &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Likelihoods available &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Landings_Lognormal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Survey index_Lognormal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Age composition_Standard multinomial &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Age composition_Dirichlet multinomial &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Priors &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·None &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Lognormal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Beta &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ·Normal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+*&lt;sup&gt;1&lt;/sup&gt;Li et al., In review*
+
+.footnote[
+[1] B. Li, K. W. Shertzer, P. D. Lynch, J. N. Ianelli, C. M. Legault, E. H. Williams, R. D.
+Methot Jr, E. N. Brooks, J. J. Deroba, A. M. Berger, S. R. Sagarese, J. K.T. Brodziak, I. G.
+Taylor, M. A. Karp, C. R. Wetzel, and M. Supernaw. A comparison of four primary age-structured
+stock assessment models used in the United States. In Review. Fishery Bulletin.
+]
+
+---
+# Age-structured stock assessment package comparison
+- Beverton-Holt spawner-recruit model bias correction
+
+ - Difference between median- and mean-unbiased R0/h increases with increasing sigmaR
+&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/2020_model_comparison_project/r0_h_bias correction.jpg" width="12597" style="display: block; margin: auto auto auto 0;" /&gt;
+
+---
+# Age-structured stock assessment package comparison
+- Conversion
+
+&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/2020_model_comparison_project/msy_bias_correctiono.jpg" width="80%" style="display: block; margin: auto auto auto 0;" /&gt;
+
+---
+# Age-structured stock assessment package comparison
+
+.pull-left[
+
+- Stock assessment training 
+
+- Base case discussion
+
+- Cases priotization
+
+- Research phases and montly reporting 
+
+- Weekly check-in chat
+
+- Meeting notes and actions for next meeting
+]
+
+.pull-right[
+![](http://www.planningplanet.com/sites/default/files/imagecache/wysiwyg_full_page/wysiwyg_imageupload/42/reporting.gif)
+]
+
+.footnote[
+http://www.planningplanet.com/sites/default/files/imagecache/wysiwyg_full_page/wysiwyg_imageupload/42/reporting.gif
+]
+
+---
+# Age-structured stock assessment package comparison
+.pull-left[
+- Inputs/outputs standardization 
+  - [DMAS](https://github.com/Bai-Li-NOAA/DMAS)
+  
+Installation instruction
+
+```r 
+install.packages("remotes")
+remotes::install_github("Bai-Li-NOAA/DMAS")
+library(DMAS)
+```
+Load assessment examples
+    
+```r
+asap_input &lt;- DMAS::asap_simple_input
+asap_output &lt;- DMAS::asap_simple_output
+ss_input &lt;- DMAS::ss_empirical_waa_input
+```
+]
+
+.pull-right[
+![](https://taf.ices.dk/img/taf-diagram.png)
+*&lt;sup&gt;1&lt;/sup&gt;ICES Transparent Assessment Framework Web App*
+]
+
+.footnote[
+[1] https://taf.ices.dk/app/about
+]
+
+---
+# Age-structured stock assessment package comparison
+- Technical skills that I learned but I didn't write in the manuscript
+
+  - Handle assessment model inputs and outputs with available R packages
+  
+     - [ASAPplots](https://github.com/cmlegault/ASAPplots) and ASAP
+     - [FishGraph](https://github.com/RobCheshire-NOAA/FishGraph) and BAM
+     - [r4ss](https://github.com/r4ss/r4ss) and SS
+     
+  - Run assessment models in R
+  
+```r 
+asap_input &lt;- ReadASAP3DatFile("asap3.DAT")
+
+asap_input$dat$CAA_mats[[1]] &lt;- cbind(em_input$L.age.obs$fleet1, em_input$L.obs$fleet1)
+
+WriteASAP3DatFile(fname = "asap3.DAT", dat.object=asap_input
+
+system(paste(file.path(casedir, "ASAP3.exe"), file.path(casedir, "asap3.DAT")
+```
+---
+# R interface to the Metapopulation Assessment System 
+.pull-left[
+- MAS: Metapopulation Assessment System
+
+- R interface
+
+- Build and run MAS models directly using R
+
+- [NOAA Fisheries Integrated Toolbox](https://noaa-fisheries-integrated-toolbox.github.io/) =&gt; [Fish and Fisheries](https://nmfs-fish-tools.github.io/)
+
+- [Testing: r4MAS GitHub repository](https://github.com/nmfs-fish-tools/r4MAS/tree/master/tests/testthat)
+
+- [Documentation: r4MAS site](https://nmfs-fish-tools.github.io/r4MAS/)
+
+*&lt;sup&gt;1&lt;/sup&gt;Goethel and Berger, 2017*
+]
+
+.pull-right[
+![](https://cdnsciencepub.com/cms/10.1139/cjfas-2016-0290/asset/images/large/cjfas-2016-0290f2.jpeg)
+]
+
+.footnote[
+[1]https://doi.org/10.1139/cjfas-2016-0290
+]
+
+???
+Tool for spatial modeling of fish population
+---
+# R interface to the Metapopulation Assessment System 
+
+.pull-left[
+![](https://miro.medium.com/max/14000/1*_hkNXL7RuIbrwA4VclW0yg.jpeg)
+]
+
+.pull-right[
+- Automated testing
+
+  - Unit testing
+
+  - Integration testing
+
+  - System testing
+
+  - Acceptance testing
+]
+
+.footnote[
+[1]https://miro.medium.com/max/14000/1*_hkNXL7RuIbrwA4VclW0yg.jpeg
+]
+
+---
+# Project workflow and programming resources
+
+.pull-left[
+![](http://www.phdcomics.com/comics/archive/phd101212s.gif)
+]
+
+.pull-right[
+- 500+ line of code in one R script
+
+- No version control in code
+
+- finale.R =&gt; final2.R =&gt; final_final.R
+
+How to make science reproducible and make your life easier?
+]
+
+.footnote[
+[1]http://www.phdcomics.com/comics/archive/phd101212s.gif
+]
+---
+# Clear project structure and workflow
+
+.pull-left[
+
+```
+##                         levelName
+## 1  project                       
+## 2   ¦--doc                       
+## 3   ¦   ¦--manuscript.Rmd        
+## 4   ¦   ¦--notes.Rmd             
+## 5   ¦   °--requirement.Rmd       
+## 6   ¦--data                      
+## 7   ¦   °--data.csv              
+## 8   ¦--R                         
+## 9   ¦   °--read_input_function.R 
+## 10  ¦--code                      
+## 11  ¦   °--configuration.R       
+## 12  °--output                    
+## 13      ¦--summary_statistics.csv
+## 14      °--figure.jpeg
+```
+]
+
+.pull-right[
+![](https://rverse-tutorials.github.io/RWorkflow-NWFSC-2020/images/tools-logo-transparent.png)
+
+[Practical R Workflow for Scientists Summer 2020](https://rverse-tutorials.github.io/RWorkflow-NWFSC-2020/index.html)
+]
+
+---
+# Version control system
+"A system that records changes to a file or a set of files over time so that you can recall specicif  versions later"
+
+- Revert selected files back to a previous state
+- Revert the entire project back to a previous state
+- Compare changes over time
+- Git and GitHub
+
+.pull-left[
+![](https://git-scm.com/book/en/v2/images/local.png)&lt;!-- --&gt;
+]
+.pull-right[
+![](https://git-scm.com/book/en/v2/images/centralized.png)&lt;!-- --&gt;
+]
+
+.footnote[
+Source: 
+https://git-scm.com/;
+https://github.com/
+]
+
+???
+Git is a free and open source distributed version control system
+
+GitHub uses Git to provide internet hosting for software development and version control
+---
+# GitHub Actions
+
+- Automate tasks within software development life cycle
+- Event-driven commands run (e.g. push and pull)
+- Automated multi-platform testing
+- Job, steps, and actions
+
+&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/general/github_actions.PNG" width="2476" style="display: block; margin: auto auto auto 0;" /&gt;
+
+---
+# In summary
+- Project oriented workflow
+
+- Standardized input/output of your project and tool*&lt;sup&gt;1,2&lt;/sup&gt;*
+
+- Generate dynamic reports with R Markdown*&lt;sup&gt;3&lt;/sup&gt;*
+
+- Collaborative work with Git and GitHub*&lt;sup&gt;4&lt;/sup&gt;*
+
+- Produce web-based documentation of your research*&lt;sup&gt;5&lt;/sup&gt;*
+
+.footnote[
+More resources: &lt;br&gt;
+[1][Taking your data to go with R packages](https://www.davekleinschmidt.com/r-packages/) &lt;br&gt;
+[2][Making your first R package](https://tinyheero.github.io/jekyll/update/2015/07/26/making-your-first-R-package.html) &lt;br&gt;
+[3][R Markdown](https://rmarkdown.rstudio.com/) &lt;br&gt;
+[4][Introduction to Git within RStudio](https://rverse-tutorials.github.io/RWorkflow-NWFSC-2020/intro-git.html)&lt;br&gt;
+[5][Pkgdown](https://pkgdown.r-lib.org/index.html)
+
+]
+---
+# Thanks!
+
+bai.li@noaa.gov
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "4:3",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "Page %current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

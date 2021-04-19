@@ -1,0 +1,13 @@
+Feature,AMAK,ASAP,BAM,SS
+F in terminal year,Last Year,Last Year,Flexible,Last Year
+Definition of F ,Flexible,Apical F,Apical F,Flexible
+Likelihoods available,,,,
+·Landings_Lognormal,Y,Y,Y,Y
+·Survey index_Lognormal,Y,Y,Y,Y
+·Age composition_Standard multinomial,Y,Y,Y,Y
+·Age composition_Dirichlet multinomial,,,Y,Y
+Priors,,,,
+·None,Y,Y,Y,Y
+·Lognormal ,Y,Y,Y,Y
+·Beta,,,Y,Y
+·Normal,,,Y,Y
