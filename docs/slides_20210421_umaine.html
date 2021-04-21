@@ -18,7 +18,7 @@ class: center, middle, inverse, title-slide
 
 # Wish I'd known:<br>Project workflow and <br> reproducible science
 ### Bai Li <br> <br> National Stock Assessment Modeling Team <br> Contractor with ECS in support of NOAA Fisheries <br> Office of Science and Technology <br> <code>bai.li@noaa.gov</code>
-### April 21, 2021 <br> Updated on 2021-04-19 <br> University of Maine
+### April 21, 2021 <br> Updated on 2021-04-21 <br> University of Maine
 
 ---
 
@@ -113,7 +113,12 @@ layout: true
 &lt;br&gt;
 
 - Project workflow and programming resources
+
+  + Clear project structure and workflow
   
+  + Version control system
+  
+  + GitHub Actions
 
 ---
 # Age-structured stock assessment package comparison
@@ -135,7 +140,7 @@ layout: true
 
   - Assessment Model for Alaska (AMAK)
   
-  - Age-Structued Assessment Program (ASAP)
+  - Age-Structured Assessment Program (ASAP)
   
   - Beaufort Assessment Model (BAM)
   
@@ -145,15 +150,14 @@ layout: true
 
 ---
 # Age-structured stock assessment package comparison
-.pull-left[
-<div id="htmlwidget-d5fb564317172549019f" style="width:80%;height:180px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d5fb564317172549019f">{"x":{"diagram":"digraph {\n  graph [layout = dot, rankdir = TD, fontsize = 10]\n                  \n  node [shape = rectangle, style = filled, fillcolor = Linen]        \n  rec1 [label = \"Modeler A: \nData simulation\", fillcolor = Beige]\n  rec2 [label = \"Modeler A: \nResults Comparison\", fillcolor = Beige]\n  rec3 [label = \"Modeler B: \nSA 1\"]\n  rec4 [label = \"Modeler C: \nSA 2\"]\n  rec5 [label = \"Modeler D: \nSA 3\"]\n  rec6 [label = \"Modeler E: \nSA 4\"]\n\n  # edge definitions with the node IDs\n  rec1 -> {rec3 rec4 rec5 rec6} -> rec2\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-]
+<div id="htmlwidget-9ec5bb53e0d1419fc8a7" style="width:504px;height:504px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9ec5bb53e0d1419fc8a7">{"x":{"diagram":"digraph {\n  graph [layout = dot, rankdir = TD, fontsize = 10]\n                  \n  node [shape = rectangle, style = filled, fillcolor = Linen]        \n  rec1 [label = \"Modeler A: \nData simulation\", fillcolor = Beige]\n  rec2 [label = \"Modeler A: \nResults Comparison\", fillcolor = Beige]\n  rec3 [label = \"Modeler B: \nSA 1\"]\n  rec4 [label = \"Modeler C: \nSA 2\"]\n  rec5 [label = \"Modeler D: \nSA 3\"]\n  rec6 [label = \"Modeler E: \nSA 4\"]\n\n  # edge definitions with the node IDs\n  rec1 -> {rec3 rec4 rec5 rec6} -> rec2\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
-.pull-right[
+---
+# Age-structured stock assessment package comparison
 ![](https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/icesjms/72/1/10.1093_icesjms_fst237/1/fst23701.gif?Expires=1621614216&amp;Signature=oEYYcrK7jA-UpVPvLA7wSrqDk~a7ffe6I4xGgRS7BrNrc~~HfcS0vUux1QI4YG4axsvVdo0t0MFnS9yrD5LxTfEPAZYOq4LyPFNwo-AL6BiOrGjuD4UpDzcKSnfCIsCpDTg7JPWTgFvu9qfCDsDEuCOkiIltA9m3oFHdp037OQLcpCQfJgoAdc~hI8B4P4UIg3o266KRxxh56iTbx-pnGRu9ZzWDBiVMspUv2BIWkyiOqqdF6qWHu3r93leLY14HiWcN-U4jc6Fpe2mxRf-Z7w52ro5wct0Qm~PVEKyLeuXDpSB1TW~P5B2FRHhQQMr7tsNQ0CS15nDAskiXRI4YPQ__&amp;Key-Pair-Id=APKAIE5G5CRDK6RD3PGA)
+
 *&lt;sup&gt;1&lt;/sup&gt;Deroba et al., 2015*
-]
 
 .footnote[
 [1] https://doi.org/10.1093/icesjms/fst237
@@ -405,14 +409,15 @@ stock assessment models used in the United States. In Review. Fishery Bulletin.
 # Age-structured stock assessment package comparison
 - Beverton-Holt spawner-recruit model bias correction
 
- - Difference between median- and mean-unbiased R0/h increases with increasing sigmaR
-&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/2020_model_comparison_project/r0_h_bias correction.jpg" width="12597" style="display: block; margin: auto auto auto 0;" /&gt;
+ - Difference between geometric- and arithmetic-mean R0
+ - Difference between geometric- and arithmetic-mean h
+&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/2020_model_comparison_project/r0_h_bias correction.jpg" width="12597" style="display: block; margin: auto;" /&gt;
 
 ---
 # Age-structured stock assessment package comparison
 - Conversion
 
-&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/2020_model_comparison_project/msy_bias_correctiono.jpg" width="80%" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/2020_model_comparison_project/msy_bias_correctiono.jpg" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 # Age-structured stock assessment package comparison
@@ -423,9 +428,9 @@ stock assessment models used in the United States. In Review. Fishery Bulletin.
 
 - Base case discussion
 
-- Cases priotization
+- Cases prioritization
 
-- Research phases and montly reporting 
+- Research phases and monthly reporting 
 
 - Weekly check-in chat
 
@@ -439,6 +444,9 @@ stock assessment models used in the United States. In Review. Fishery Bulletin.
 .footnote[
 http://www.planningplanet.com/sites/default/files/imagecache/wysiwyg_full_page/wysiwyg_imageupload/42/reporting.gif
 ]
+---
+# Age-structured stock assessment package comparison
+&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/r4MAS/github_project.PNG" width="2007" style="display: block; margin: auto;" /&gt;
 
 ---
 # Age-structured stock assessment package comparison
@@ -488,10 +496,33 @@ asap_input &lt;- ReadASAP3DatFile("asap3.DAT")
 
 asap_input$dat$CAA_mats[[1]] &lt;- cbind(em_input$L.age.obs$fleet1, em_input$L.obs$fleet1)
 
-WriteASAP3DatFile(fname = "asap3.DAT", dat.object=asap_input
+WriteASAP3DatFile(fname = "asap3.DAT", dat.object=asap_input)
 
-system(paste(file.path(casedir, "ASAP3.exe"), file.path(casedir, "asap3.DAT")
+system(paste(file.path(casedir, "ASAP3.exe"), file.path(casedir, "asap3.DAT")))
 ```
+
+---
+# Fisheries Integrated Modeling System (FIMS)
+.pull-left[
+&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/FIMS/noaa_fisheries_news.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+- OST + Science Centers
+
+- Implementation team
+
+- Testing
+  - Parallel work
+  - Test procedures
+  - Test cases
+  - Code review
+]
+
+.footnote[
+[1] https://www.fisheries.noaa.gov/national/population-assessments/fisheries-integrated-modeling-system
+]
+
 ---
 # R interface to the Metapopulation Assessment System 
 .pull-left[
@@ -551,11 +582,11 @@ Tool for spatial modeling of fish population
 ]
 
 .pull-right[
-- 500+ line of code in one R script
+- 500+ lines of code in one R script
 
 - No version control in code
 
-- finale.R =&gt; final2.R =&gt; final_final.R
+- final.R =&gt; final2.R =&gt; final_final.R
 
 How to make science reproducible and make your life easier?
 ]
@@ -575,16 +606,20 @@ How to make science reproducible and make your life easier?
 ## 3   ¦   ¦--manuscript.Rmd        
 ## 4   ¦   ¦--notes.Rmd             
 ## 5   ¦   °--requirement.Rmd       
-## 6   ¦--data                      
+## 6   ¦--data-raw                  
 ## 7   ¦   °--data.csv              
-## 8   ¦--R                         
-## 9   ¦   °--read_input_function.R 
-## 10  ¦--code                      
-## 11  ¦   °--configuration.R       
-## 12  °--output                    
-## 13      ¦--summary_statistics.csv
-## 14      °--figure.jpeg
+## 8   ¦--data                      
+## 9   ¦   °--data.RData            
+## 10  ¦--R                         
+## 11  ¦   °--function.R            
+## 12  ¦--Script                    
+## 13  ¦   °--run_model.R           
+## 14  °--output                    
+## 15      ¦--summary_statistics.csv
+## 16      °--figure.jpeg
 ```
+
+- Functions VS. Scripts
 ]
 
 .pull-right[
@@ -595,7 +630,7 @@ How to make science reproducible and make your life easier?
 
 ---
 # Version control system
-"A system that records changes to a file or a set of files over time so that you can recall specicif  versions later"
+"A system that records changes to a file or a set of files over time so that you can recall specific  versions later"
 
 - Revert selected files back to a previous state
 - Revert the entire project back to a previous state
@@ -627,7 +662,7 @@ GitHub uses Git to provide internet hosting for software development and version
 - Automated multi-platform testing
 - Job, steps, and actions
 
-&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/general/github_actions.PNG" width="2476" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="C:/Users/bai.li/Documents/Github/Presentations/docs/static/general/github_actions.PNG" width="2476" style="display: block; margin: auto;" /&gt;
 
 ---
 # In summary
@@ -635,7 +670,7 @@ GitHub uses Git to provide internet hosting for software development and version
 
 - Standardized input/output of your project and tool*&lt;sup&gt;1,2&lt;/sup&gt;*
 
-- Generate dynamic reports with R Markdown*&lt;sup&gt;3&lt;/sup&gt;*
+- Generate standardized reports with R Markdown*&lt;sup&gt;3&lt;/sup&gt;*
 
 - Collaborative work with Git and GitHub*&lt;sup&gt;4&lt;/sup&gt;*
 

@@ -26,6 +26,7 @@ static_dir <- here::here("docs", "static")
 noaa_static_dir <- file.path(static_dir, "noaa_static")
 model_comparison_dir <- file.path(static_dir, "2020_model_comparison_project")
 fims_dir <- file.path(static_dir, "FIMS")
+r4mas_dir <- file.path(static_dir, "r4MAS")
 general_dir <- file.path(static_dir, "general")
 
 # make colors css names
@@ -131,7 +132,12 @@ kable(position, "html") %>%
 <br>
 
 - Project workflow and programming resources
+
+  + Clear project structure and workflow
   
+  + Version control system
+  
+  + GitHub Actions
 
 ---
 # Age-structured stock assessment package comparison
@@ -155,7 +161,7 @@ knitr::include_graphics(file.path(model_comparison_dir, "dichmont_us_fisheries_c
 
   - Assessment Model for Alaska (AMAK)
   
-  - Age-Structued Assessment Program (ASAP)
+  - Age-Structured Assessment Program (ASAP)
   
   - Beaufort Assessment Model (BAM)
   
@@ -165,8 +171,7 @@ knitr::include_graphics(file.path(model_comparison_dir, "dichmont_us_fisheries_c
 
 ---
 # Age-structured stock assessment package comparison
-.pull-left[
-```{r echo=FALSE, fig.align = "left", out.width = "80%"}
+```{r echo=FALSE, fig.align="center"}
 DiagrammeR::grViz("digraph {
   graph [layout = dot, rankdir = TD, fontsize = 10]
                   
@@ -180,14 +185,14 @@ DiagrammeR::grViz("digraph {
 
   # edge definitions with the node IDs
   rec1 -> {rec3 rec4 rec5 rec6} -> rec2
-  }", height = 180)
+  }")
 ```
-]
 
-.pull-right[
+---
+# Age-structured stock assessment package comparison
 ![](`r "https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/icesjms/72/1/10.1093_icesjms_fst237/1/fst23701.gif?Expires=1621614216&Signature=oEYYcrK7jA-UpVPvLA7wSrqDk~a7ffe6I4xGgRS7BrNrc~~HfcS0vUux1QI4YG4axsvVdo0t0MFnS9yrD5LxTfEPAZYOq4LyPFNwo-AL6BiOrGjuD4UpDzcKSnfCIsCpDTg7JPWTgFvu9qfCDsDEuCOkiIltA9m3oFHdp037OQLcpCQfJgoAdc~hI8B4P4UIg3o266KRxxh56iTbx-pnGRu9ZzWDBiVMspUv2BIWkyiOqqdF6qWHu3r93leLY14HiWcN-U4jc6Fpe2mxRf-Z7w52ro5wct0Qm~PVEKyLeuXDpSB1TW~P5B2FRHhQQMr7tsNQ0CS15nDAskiXRI4YPQ__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA"`)
+
 *<sup>1</sup>Deroba et al., 2015*
-]
 
 .footnote[
 [1] https://doi.org/10.1093/icesjms/fst237
@@ -236,8 +241,9 @@ stock assessment models used in the United States. In Review. Fishery Bulletin.
 # Age-structured stock assessment package comparison
 - Beverton-Holt spawner-recruit model bias correction
 
- - Difference between median- and mean-unbiased R0/h increases with increasing sigmaR
-```{r echo = F, fig.align = "left"}
+ - Difference between geometric- and arithmetic-mean R0
+ - Difference between geometric- and arithmetic-mean h
+```{r echo = F, fig.align = "center"}
 knitr::include_graphics(file.path(model_comparison_dir, "r0_h_bias correction.jpg"))
 ```
 
@@ -245,7 +251,7 @@ knitr::include_graphics(file.path(model_comparison_dir, "r0_h_bias correction.jp
 # Age-structured stock assessment package comparison
 - Conversion
 
-```{r echo = F, fig.align = "left", out.width = "80%"}
+```{r echo = F, fig.align = "center", out.width = "80%"}
 knitr::include_graphics(file.path(model_comparison_dir, "msy_bias_correctiono.jpg"))
 ```
 
@@ -258,9 +264,9 @@ knitr::include_graphics(file.path(model_comparison_dir, "msy_bias_correctiono.jp
 
 - Base case discussion
 
-- Cases priotization
+- Cases prioritization
 
-- Research phases and montly reporting 
+- Research phases and monthly reporting 
 
 - Weekly check-in chat
 
@@ -274,6 +280,11 @@ knitr::include_graphics(file.path(model_comparison_dir, "msy_bias_correctiono.jp
 .footnote[
 http://www.planningplanet.com/sites/default/files/imagecache/wysiwyg_full_page/wysiwyg_imageupload/42/reporting.gif
 ]
+---
+# Age-structured stock assessment package comparison
+```{r echo = F, fig.align = "center"}
+knitr::include_graphics(file.path(r4mas_dir, "github_project.PNG"))
+```
 
 ---
 # Age-structured stock assessment package comparison
@@ -323,10 +334,35 @@ asap_input <- ReadASAP3DatFile("asap3.DAT")
 
 asap_input$dat$CAA_mats[[1]] <- cbind(em_input$L.age.obs$fleet1, em_input$L.obs$fleet1)
 
-WriteASAP3DatFile(fname = "asap3.DAT", dat.object=asap_input
+WriteASAP3DatFile(fname = "asap3.DAT", dat.object=asap_input)
 
-system(paste(file.path(casedir, "ASAP3.exe"), file.path(casedir, "asap3.DAT")
+system(paste(file.path(casedir, "ASAP3.exe"), file.path(casedir, "asap3.DAT")))
 ```
+
+---
+# Fisheries Integrated Modeling System (FIMS)
+.pull-left[
+```{r echo = F, fig.align = "center", out.width = "90%"}
+knitr::include_graphics(file.path(fims_dir, "noaa_fisheries_news.jpg"))
+```
+]
+
+.pull-right[
+- OST + Science Centers
+
+- Implementation team
+
+- Testing
+  - Parallel work
+  - Test procedures
+  - Test cases
+  - Code review
+]
+
+.footnote[
+[1] https://www.fisheries.noaa.gov/national/population-assessments/fisheries-integrated-modeling-system
+]
+
 ---
 # R interface to the Metapopulation Assessment System 
 .pull-left[
@@ -386,11 +422,11 @@ Tool for spatial modeling of fish population
 ]
 
 .pull-right[
-- 500+ line of code in one R script
+- 500+ lines of code in one R script
 
 - No version control in code
 
-- finale.R => final2.R => final_final.R
+- final.R => final2.R => final_final.R
 
 How to make science reproducible and make your life easier?
 ]
@@ -407,10 +443,10 @@ path <- c(
     "project/doc/manuscript.Rmd",
     "project/doc/notes.Rmd",
     "project/doc/requirement.Rmd",
-    "project/data/data.csv", 
-    "project/R/read_input_function.R", 
-    "project/R/read_input_function.R",
-    "project/code/configuration.R", 
+    "project/data-raw/data.csv", 
+    "project/data/data.RData", 
+    "project/R/function.R", 
+    "project/Script/run_model.R",
     "project/output/summary_statistics.csv",
     "project/output/figure.jpeg",
     "project/doc/manuscript.Rmd",
@@ -422,6 +458,8 @@ x <- rbind.fill(x)
 x$pathString <- apply(x, 1, function(x) paste(trimws(na.omit(x)), collapse="/"))
 (mytree <- data.tree::as.Node(x))
 ```
+
+- Functions VS. Scripts
 ]
 
 .pull-right[
@@ -432,7 +470,7 @@ x$pathString <- apply(x, 1, function(x) paste(trimws(na.omit(x)), collapse="/"))
 
 ---
 # Version control system
-"A system that records changes to a file or a set of files over time so that you can recall specicif  versions later"
+"A system that records changes to a file or a set of files over time so that you can recall specific  versions later"
 
 - Revert selected files back to a previous state
 - Revert the entire project back to a previous state
@@ -468,7 +506,7 @@ GitHub uses Git to provide internet hosting for software development and version
 - Automated multi-platform testing
 - Job, steps, and actions
 
-```{r echo = F, fig.align = "left"}
+```{r echo = F, fig.align = "center"}
 knitr::include_graphics(file.path(general_dir, "github_actions.PNG"))
 ```
 
@@ -478,7 +516,7 @@ knitr::include_graphics(file.path(general_dir, "github_actions.PNG"))
 
 - Standardized input/output of your project and tool*<sup>1,2</sup>*
 
-- Generate dynamic reports with R Markdown*<sup>3</sup>*
+- Generate standardized reports with R Markdown*<sup>3</sup>*
 
 - Collaborative work with Git and GitHub*<sup>4</sup>*
 
