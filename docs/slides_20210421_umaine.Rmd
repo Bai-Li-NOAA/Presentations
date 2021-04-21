@@ -19,10 +19,9 @@ layout: true
 ```{r xaringanthemer, include=FALSE, warning=FALSE}
 remotes::install_github("nmfs-general-modeling-tools/nmfspalette")
 library(xaringanthemer)
-library(here)
 library(nmfspalette)
 
-static_dir <- here::here("docs", "static")
+static_dir <- file.path("static")
 noaa_static_dir <- file.path(static_dir, "noaa_static")
 model_comparison_dir <- file.path(static_dir, "2020_model_comparison_project")
 fims_dir <- file.path(static_dir, "FIMS")
