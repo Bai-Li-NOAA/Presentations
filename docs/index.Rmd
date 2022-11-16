@@ -2,6 +2,10 @@
 title: "Presentation slides"
 output: html_document
 ---
+### NOAA
+*2022*
+
+<a href="slides_20221117_fims_test_fixtures.html">Test fixtures: Reusing test data configuration between tests - November 17, 2022</a>
 
 ### University
 
