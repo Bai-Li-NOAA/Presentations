@@ -174,16 +174,16 @@ Test_F(TestFixtureName, TestName2){
 ---
 # Steps to create a Google Test fixture class*<sup>1</sup>*
 - Derive a class from `::testing::Test`
-- Start its body with `protected:` to access fixture members from sub-classes
+- Start its body with `protected:`
 - Declare any objects you plan to use inside the class
 - Write a default constructor or `SetUp()` function to prepare the objects
-- Write a destructor or `TearDown()` function to release any resources that are allocated in `SetUp`. 
+- Write a destructor or `TearDown()` function to release any resources that are allocated in `SetUp()`. 
 - Define subroutines for your tests to share
   
 ```c++
 class TestFixtureName : public ::testing::Test{
   protected:
-    void SetUp override{
+    void SetUp() override{
       ...SetUp body...
     }
     
@@ -199,10 +199,12 @@ class TestFixtureName : public ::testing::Test{
 ]
 ---
 # FIMS test fixture files (WIP)
-- FIMS/tests/gtest/test_population_test_fixture.hpp ([link](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_test_fixture.hpp))
-- FIMS/tests/gtest/test_population_dynamics_population_initialize_prepare.cpp([link](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_dynamics_population_initialize_prepare.cpp))
-- FIMS/tests/gtest/test_population_NumbersAtAge.cpp([link](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_NumbersAtAge.cpp))
-- FIMS/tests/gtest/test_population_Li.cpp ([link](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_Li.cpp))
+- [FIMS/tests/gtest/test_population_test_fixture.hpp](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_test_fixture.hpp)
+
+- [FIMS/tests/gtest/test_population_dynamics_population_initialize_prepare.cpp](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_dynamics_population_initialize_prepare.cpp)
+
+- [FIMS/tests/gtest/test_population_NumbersAtAge.cpp](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_NumbersAtAge.cpp)
+- [FIMS/tests/gtest/test_population_Li.cpp](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_Li.cpp)
 ---
 # FIMS test files diagram
 ```{r echo=FALSE, out.width="100%"}
@@ -228,14 +230,19 @@ graph LR
 ---
 # PopulationInitializeTestFixture
 - `PopulationInitializeTestFixture` derives from the fixture base class `::testing::Test`
-- Population id_g, nyears, nseasons, nages, nfleets, and fleet from the SetUp() will be called **before** all tests using the fixture
-- TearDown() will be called **after** all tests using the fixture are run
-- Population object will be called and id_g, nyears, nseasons, nages, nfleets values will be set before calling SetUp()
+
+- Population `id_g`, `nyears`, `nseasons`, `nages`, `nfleets`, and `fleet` from the `SetUp()` will be called **before** all tests using the fixture
+
+- `TearDown()` will be called **after** all tests using the fixture are run
+
+- Population object will be called and `id_g`, `nyears`, `nseasons`, `nages`, `nfleets` values will be set before calling `SetUp()`
 ---
 # PopulationPrepareTestFixture
-  - population.Initialize() and population.Prepare() functions will be called **before** all tests using the fixture
-  - population.log_naa, population.log_M, population.log_Fmort pseudo-random numbers will be generated using `std::default_random_engine` class **before** all tests using the fixture
-  - Make shared pointers to selectivity, fleet, and maturity to set up population.fleets and maturity
+  - `population.Initialize()` and `population.Prepare()` functions will be called **before** all tests using the fixture
+  
+  - `population.log_naa`, `population.log_M`, `population.log_Fmort` pseudo-random numbers will be generated using `std::default_random_engine` class **before** all tests using the fixture
+  
+  - Make shared pointers to `selectivity`, `fleet`, and `maturity` to set up `population.fleets` and maturity
 ---
 # Thanks!
 

@@ -2,13 +2,13 @@
 title: "Presentation slides"
 output: html_document
 ---
-### NOAA
+### Programming
 *2022*
 
 <a href="slides_20221117_fims_test_fixtures.html">Test fixtures: Reusing test data configuration between tests - November 17, 2022</a>
 
-### University
+### Workflow
 
 *2021*
 
-<a href="slides_20210421_umaine.html">Talk with graduate students at University of Maine - April 21, 2021</a>
+<a href="slides_20210421_umaine.html">Wish I'd known: Project workflow and reproducible science - April 21, 2021</a>
