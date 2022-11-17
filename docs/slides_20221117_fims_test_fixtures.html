@@ -3,7 +3,7 @@
   <head>
     <title>Test fixtures: Reusing test data configuration between tests</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Bai Li     National Stock Assessment Modeling Team   Contractor with ECS in support of NOAA Fisheries   Office of Science and Technology   bai.li@noaa.gov" />
+    <meta name="author" content="Bai Li     National Stock Assessment Program Modeling Team   Contractor with ECS in support of NOAA Fisheries   Office of Science and Technology   bai.li@noaa.gov" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <script src="libs/htmlwidgets/htmlwidgets.js"></script>
     <script src="libs/d3/d3.min.js"></script>
@@ -20,8 +20,8 @@
 class: center, middle, inverse, title-slide
 
 # Test fixtures: Reusing test data configuration between tests
-### Bai Li <br> <br> National Stock Assessment Modeling Team <br> Contractor with ECS in support of NOAA Fisheries <br> Office of Science and Technology <br> <code>bai.li@noaa.gov</code>
-### Nov 17, 2022 <br> FIMS C++ office hour <br> Updated on 2022-11-16
+### Bai Li <br> <br> National Stock Assessment Program Modeling Team <br> Contractor with ECS in support of NOAA Fisheries <br> Office of Science and Technology <br> <code>bai.li@noaa.gov</code>
+### Nov 17, 2022 <br> FIMS C++ office hour <br> Updated on 2022-11-17
 
 ---
 
@@ -47,15 +47,13 @@ layout: true
   - data
   - cleanup procedures
   
-.center[**Use test fixture when you find you are repeating yourself**]
-
 .footnote[
 [1]Khorikov V. 2020. Unit testing: principles, practices, and patterns. Shelter Island, NY: Manning.&lt;br&gt;
 [2]GoogleTest Users' guide: [http://google.github.io/googletest/primer.html#same-data-multiple-tests](http://google.github.io/googletest/primer.html#same-data-multiple-tests) &lt;br&gt;
 ]
 
 ---
-**CalculateMortality_works and CalculateNumbersAA_works share same initialization work**
+**Use test fixture when you find you are repeating yourself**
 
 ```c++
 TEST(PopulationModuleTest, CalculateMortality_works)
@@ -146,32 +144,36 @@ class TestFixtureName : public ::testing::Test{
 ]
 ---
 # FIMS test fixture files (WIP)
-- [FIMS/tests/gtest/test_population_test_fixture.hpp](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_test_fixture.hpp)
+- [&lt;u&gt;FIMS/tests/gtest/test_population_test_fixture.hpp&lt;/u&gt;](https://github.com/NOAA-FIMS/FIMS/blob/9469d42eeb6193a149762bcbdb462c3d5c45c148/tests/gtest/test_population_test_fixture.hpp)
 
-- [FIMS/tests/gtest/test_population_dynamics_population_initialize_prepare.cpp](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_dynamics_population_initialize_prepare.cpp)
+- [&lt;u&gt;FIMS/tests/gtest/test_population_dynamics_population_initialize_prepare.cpp&lt;/u&gt;](https://github.com/NOAA-FIMS/FIMS/blob/9469d42eeb6193a149762bcbdb462c3d5c45c148/tests/gtest/test_population_dynamics_population_initialize_prepare.cpp)
 
-- [FIMS/tests/gtest/test_population_NumbersAtAge.cpp](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_NumbersAtAge.cpp)
-- [FIMS/tests/gtest/test_population_Li.cpp](https://github.com/NOAA-FIMS/FIMS/blob/633a707101b0638f0fe7374d055636e41a57126c/tests/gtest/test_population_Li.cpp)
+- [&lt;u&gt;FIMS/tests/gtest/test_population_NumbersAtAge.cpp&lt;/u&gt;](https://github.com/NOAA-FIMS/FIMS/blob/9469d42eeb6193a149762bcbdb462c3d5c45c148/tests/gtest/test_population_NumbersAtAge.cpp)
+
+- [&lt;u&gt;FIMS/tests/gtest/test_population_Li.cpp&lt;/u&gt;](https://github.com/NOAA-FIMS/FIMS/blob/9469d42eeb6193a149762bcbdb462c3d5c45c148/tests/gtest/test_population_Li.cpp)
+
+- [&lt;u&gt;FIMS/tests/gtest/test_population_MaturityAtAge.cpp&lt;/u&gt;](https://github.com/NOAA-FIMS/FIMS/blob/9469d42eeb6193a149762bcbdb462c3d5c45c148/tests/gtest/test_population_MaturityAtAge.cpp)
 ---
 # FIMS test files diagram
-<div id="htmlwidget-1de614e5df2597891e89" style="width:100%;height:504px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1de614e5df2597891e89">{"x":{"diagram":"\ngraph LR\n  1[<center><b>test_population_test_fixture.hpp<\/b><\/center>];\n  2[PopulationInitializeTestFixture];\n  3[PopulationPrepareTestFixture];\n  2-1[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: input_data_are_specified];\n  2-2[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: Initialize_works];\n  3-1[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: Prepare_works];\n  3-2[<center><b>test_population_NumbersAtAge.cpp<\/b><\/center><br>test: CalculateNumbersAA_works];\n  3-3[<center><b>test_population_Li.cpp<\/b><\/center><br>test: CalculateMortality_works];\n  1-->2\n  1-->3\n  2-->2-1\n  2-->2-2\n  3-->3-1\n  3-->3-2\n  3-->3-3\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-df457b66e5e310c64dac" style="width:100%;height:504px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-df457b66e5e310c64dac">{"x":{"diagram":"\ngraph LR\n  1[<center><b>test_population_test_fixture.hpp<\/b><\/center>];\n  2[PopulationInitializeTestFixture];\n  3[PopulationPrepareTestFixture];\n  2-1[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: input_data_are_specified];\n  2-2[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: Initialize_works];\n  3-1[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: Prepare_works];\n  3-2[<center><b>test_population_NumbersAtAge.cpp<\/b><\/center><br>test: CalculateNumbersAA_works];\n  3-3[<center><b>test_population_Li.cpp<\/b><\/center><br>test: CalculateMortality_works];\n  3-4[<center><b>test_population_MaturityAtAge.cpp<\/b><\/center><br>test: CalculateMaturityAA_works];\n  1-->2\n  1-->3\n  2-->2-1\n  2-->2-2\n  3-->3-1\n  3-->3-2\n  3-->3-3\n  3-->3-4\n"},"evals":[],"jsHooks":[]}</script>
 ---
 # PopulationInitializeTestFixture
 - `PopulationInitializeTestFixture` derives from the fixture base class `::testing::Test`
+
+- Members of the test fixture class (e.g., population object, `id_g`, `nyears`, `nseasons`, `nages`, and `nfleets` will be set 
 
 - Population `id_g`, `nyears`, `nseasons`, `nages`, `nfleets`, and `fleet` from the `SetUp()` will be called **before** all tests using the fixture
 
 - `TearDown()` will be called **after** all tests using the fixture are run
 
-- Population object will be called and `id_g`, `nyears`, `nseasons`, `nages`, `nfleets` values will be set before calling `SetUp()`
 ---
 # PopulationPrepareTestFixture
   - `population.Initialize()` and `population.Prepare()` functions will be called **before** all tests using the fixture
   
   - `population.log_naa`, `population.log_M`, `population.log_Fmort` pseudo-random numbers will be generated using `std::default_random_engine` class **before** all tests using the fixture
   
-  - Make shared pointers to `selectivity`, `fleet`, and `maturity` to set up `population.fleets` and maturity
+  - Make shared pointers to `selectivity`, `fleet`, and `maturity` to set up `population.fleets` and `population.maturity`
 ---
 # Thanks!
 
