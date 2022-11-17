@@ -146,11 +146,11 @@ TEST(PopulationModuleTest, CalculateNumbersAA_works)
 - Simple test
 
 ```c++
-Test(TestSuiteName, TestName1){
+TEST(TestSuiteName, TestName1){
   ...test body...
 }
 
-Test(TestSuiteName, TestName2){
+TEST(TestSuiteName, TestName2){
   ...test body...
 }
 ```
@@ -160,11 +160,11 @@ Test(TestSuiteName, TestName2){
 - Fixture test
 
 ```c++
-Test_F(TestFixtureName, TestName1){
+TEST_F(TestFixtureName, TestName1){
   ...test body...
 }
 
-Test_F(TestFixtureName, TestName2){
+TEST_F(TestFixtureName, TestName2){
   ...test body...
 }
 ```

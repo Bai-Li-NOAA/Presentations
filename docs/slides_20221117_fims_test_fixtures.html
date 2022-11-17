@@ -93,11 +93,11 @@ TEST(PopulationModuleTest, CalculateNumbersAA_works)
 - Simple test
 
 ```c++
-Test(TestSuiteName, TestName1){
+TEST(TestSuiteName, TestName1){
   ...test body...
 }
 
-Test(TestSuiteName, TestName2){
+TEST(TestSuiteName, TestName2){
   ...test body...
 }
 ```
@@ -107,11 +107,11 @@ Test(TestSuiteName, TestName2){
 - Fixture test
 
 ```c++
-Test_F(TestFixtureName, TestName1){
+TEST_F(TestFixtureName, TestName1){
   ...test body...
 }
 
-Test_F(TestFixtureName, TestName2){
+TEST_F(TestFixtureName, TestName2){
   ...test body...
 }
 ```
@@ -155,8 +155,8 @@ class TestFixtureName : public ::testing::Test{
 - [&lt;u&gt;FIMS/tests/gtest/test_population_MaturityAtAge.cpp&lt;/u&gt;](https://github.com/NOAA-FIMS/FIMS/blob/9469d42eeb6193a149762bcbdb462c3d5c45c148/tests/gtest/test_population_MaturityAtAge.cpp)
 ---
 # FIMS test files diagram
-<div id="htmlwidget-df457b66e5e310c64dac" style="width:100%;height:504px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-df457b66e5e310c64dac">{"x":{"diagram":"\ngraph LR\n  1[<center><b>test_population_test_fixture.hpp<\/b><\/center>];\n  2[PopulationInitializeTestFixture];\n  3[PopulationPrepareTestFixture];\n  2-1[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: input_data_are_specified];\n  2-2[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: Initialize_works];\n  3-1[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: Prepare_works];\n  3-2[<center><b>test_population_NumbersAtAge.cpp<\/b><\/center><br>test: CalculateNumbersAA_works];\n  3-3[<center><b>test_population_Li.cpp<\/b><\/center><br>test: CalculateMortality_works];\n  3-4[<center><b>test_population_MaturityAtAge.cpp<\/b><\/center><br>test: CalculateMaturityAA_works];\n  1-->2\n  1-->3\n  2-->2-1\n  2-->2-2\n  3-->3-1\n  3-->3-2\n  3-->3-3\n  3-->3-4\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2343ed7ecef39e4b439e" style="width:100%;height:504px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2343ed7ecef39e4b439e">{"x":{"diagram":"\ngraph LR\n  1[<center><b>test_population_test_fixture.hpp<\/b><\/center>];\n  2[PopulationInitializeTestFixture];\n  3[PopulationPrepareTestFixture];\n  2-1[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: input_data_are_specified];\n  2-2[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: Initialize_works];\n  3-1[<center><b>test_population_dynamics_population_initialize_prepare.cpp<\/b><\/center><br>test: Prepare_works];\n  3-2[<center><b>test_population_NumbersAtAge.cpp<\/b><\/center><br>test: CalculateNumbersAA_works];\n  3-3[<center><b>test_population_Li.cpp<\/b><\/center><br>test: CalculateMortality_works];\n  3-4[<center><b>test_population_MaturityAtAge.cpp<\/b><\/center><br>test: CalculateMaturityAA_works];\n  1-->2\n  1-->3\n  2-->2-1\n  2-->2-2\n  3-->3-1\n  3-->3-2\n  3-->3-3\n  3-->3-4\n"},"evals":[],"jsHooks":[]}</script>
 ---
 # PopulationInitializeTestFixture
 - `PopulationInitializeTestFixture` derives from the fixture base class `::testing::Test`
